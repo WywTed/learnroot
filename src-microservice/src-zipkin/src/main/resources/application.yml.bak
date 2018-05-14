@@ -1,0 +1,22 @@
+
+spring:
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1.0
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 120.78.221.72:9092
+          zkNodes: 120.78.221.72:2181
+  #ESéç½®
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      host: 120.78.221.72:9200
+      cluster: elasticsearch
+      index: zipkin
+      index-shards: 1
+      index-replicas: 1

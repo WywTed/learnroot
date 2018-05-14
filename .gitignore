@@ -1,0 +1,9 @@
+/target/
+/.settings
+.classpath
+.project
+**/target/
+**/test/**
+**/.settings/**
+**/*.log
+**/*.gz
