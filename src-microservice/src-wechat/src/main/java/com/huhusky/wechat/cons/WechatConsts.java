@@ -2,9 +2,14 @@ package com.huhusky.wechat.cons;
 
 import java.io.File;
 
+import cn.zhouyafeng.itchat4j.utils.Config;
+
 public class WechatConsts {
 
-	public static String ItchatDataBasePath = "c:/itchat/data";
+	public static String LinuxBasePath = "/home/projectdata/itchat/data";
+	public static String WindowBasePath = "c:/itchat/data";
+	
+	public static String ItchatDataBasePath = "";
 	public static String QrcodeStoragePath = ItchatDataBasePath + "/loginqrcode";
 	public static String AvatarStoragePath = ItchatDataBasePath + "/avatar";
 	
@@ -16,6 +21,17 @@ public class WechatConsts {
 	
 	
 	static {
+		switch (Config.getOsNameEnum()) {
+		case WINDOWS:
+			ItchatDataBasePath = WindowBasePath;
+			break;
+		case LINUX:
+			ItchatDataBasePath = LinuxBasePath;
+			break;
+		default:
+			ItchatDataBasePath = LinuxBasePath;
+			break;
+		}
 		mkdirs(QrcodeStoragePath, AvatarStoragePath, PicMsgStoragePath, VideoMsgStoragePath, VoiceMsgStoragePath, FileMsgStoragePath);
 	}
 	
