@@ -8,10 +8,24 @@
 	<packaging>pom</packaging>
 	<name>huhusky-root</name>
 	<description>projects to learn</description>
+
+	<properties>
+		<!-- <grpc-all.version>1.5.0</grpc-all.version> -->
+		<!-- <commons-lang3.version>3.4</commons-lang3.version> -->
+		<!-- <protobuf-java.version>3.0.0</protobuf-java.version> -->
+		<docker.plugin.version>1.0.0</docker.plugin.version>
+		<docker.image.prefix>192.168.1.52/tenx_containers</docker.image.prefix>
+		<docker.image.tag>camden-sr7-v1.0</docker.image.tag>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
 	<modules>
 		<module>src-interview</module>
 		<module>src-microservice</module>
-<!-- 		<module>src-common-utils</module> -->
+<!-- 		<module>src-wechat-person</module> -->
 	</modules>
 
 	<dependencies>

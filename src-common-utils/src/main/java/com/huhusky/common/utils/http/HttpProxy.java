@@ -18,13 +18,14 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.huhusky.common.utils.exception.HttpRequestAbortedException;
 
 public class HttpProxy {
 
-    private final static Logger logger = Logger.getLogger(HttpProxy.class);
+    private final static Logger logger = LoggerFactory.getLogger(HttpProxy.class);
 
     public static String post(String url, String rawContent) throws Exception {
         CloseableHttpClient httpclient = HttpClients.createDefault();

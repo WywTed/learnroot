@@ -1,15 +1,17 @@
 package com.huhusky.common.utils.http;
 
-import org.apache.log4j.Logger;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ResponseHandler {
 
-	private final static Logger LOGGER = Logger.getLogger(ResponseHandler.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(ResponseHandler.class);
 
 	public static void outputJson(HttpServletResponse response, String content) {
 		try {
