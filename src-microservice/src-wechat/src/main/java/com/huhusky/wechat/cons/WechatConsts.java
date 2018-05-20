@@ -10,14 +10,14 @@ public class WechatConsts {
 	public static String WindowBasePath = "c:/itchat/data";
 	
 	public static String ItchatDataBasePath = "";
-	public static String QrcodeStoragePath = ItchatDataBasePath + "/loginqrcode";
-	public static String AvatarStoragePath = ItchatDataBasePath + "/avatar";
+	public static String QrcodeStoragePath = "";
+	public static String AvatarStoragePath = "";
 	
-	public static String MsgStoragePath = ItchatDataBasePath + "/msg";
-	public static String PicMsgStoragePath = MsgStoragePath + "/pic";
-	public static String VideoMsgStoragePath = MsgStoragePath + "/video";
-	public static String VoiceMsgStoragePath = MsgStoragePath + "/voice";
-	public static String FileMsgStoragePath = MsgStoragePath + "/file";
+	public static String MsgStoragePath = "";
+	public static String PicMsgStoragePath = "";
+	public static String VideoMsgStoragePath = "";
+	public static String VoiceMsgStoragePath = "";
+	public static String FileMsgStoragePath = "";
 	
 	
 	static {
@@ -32,6 +32,15 @@ public class WechatConsts {
 			ItchatDataBasePath = LinuxBasePath;
 			break;
 		}
+		QrcodeStoragePath = ItchatDataBasePath + "/loginqrcode";
+		AvatarStoragePath = ItchatDataBasePath + "/avatar";     
+		                                                        
+		MsgStoragePath = ItchatDataBasePath + "/msg";           
+		PicMsgStoragePath = MsgStoragePath + "/pic";            
+		VideoMsgStoragePath = MsgStoragePath + "/video";        
+		VoiceMsgStoragePath = MsgStoragePath + "/voice";        
+		FileMsgStoragePath = MsgStoragePath + "/file";          
+		
 		mkdirs(QrcodeStoragePath, AvatarStoragePath, PicMsgStoragePath, VideoMsgStoragePath, VoiceMsgStoragePath, FileMsgStoragePath);
 	}
 	

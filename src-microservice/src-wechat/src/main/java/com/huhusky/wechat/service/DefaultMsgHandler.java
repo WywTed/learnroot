@@ -6,11 +6,13 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+import com.huhusky.wechat.cons.WechatConsts;
+
+import cn.zhouyafeng.itchat4j.api.Core;
 import cn.zhouyafeng.itchat4j.api.MessageTools;
 import cn.zhouyafeng.itchat4j.api.WechatTools;
+import cn.zhouyafeng.itchat4j.api.dto.RecommendInfo;
 import cn.zhouyafeng.itchat4j.beans.BaseMsg;
-import cn.zhouyafeng.itchat4j.beans.RecommendInfo;
-import cn.zhouyafeng.itchat4j.core.Core;
 import cn.zhouyafeng.itchat4j.face.AbsMsgHandlerFace;
 import cn.zhouyafeng.itchat4j.utils.enums.MsgTypeEnum;
 import cn.zhouyafeng.itchat4j.utils.tools.DownloadTools;
@@ -23,6 +25,8 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 
 	@Override
 	public String textMsgHandle(BaseMsg msg) {
+		String msgContent = msg.getText();
+		log.info("==============msg: " + msgContent);
 		// String docFilePath = "D:/itchat4j/pic/1.jpg"; // 这里是需要发送的文件的路径
 		if (!msg.isGroupMsg()) { // 群消息不处理
 			// String userId = msg.getString("FromUserName");
@@ -49,7 +53,7 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 	@Override
 	public String picMsgHandle(BaseMsg msg) {
 		String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());// 这里使用收到图片的时间作为文件名
-		String picPath = "c://itchat4j/pic" + File.separator + fileName + ".jpg"; // 调用此方法来保存图片
+		String picPath = WechatConsts.PicMsgStoragePath + File.separator + fileName + ".jpg"; // 调用此方法来保存图片
 		DownloadTools.getDownloadFn(msg, MsgTypeEnum.PIC.getType(), picPath); // 保存图片的路径
 		return "图片保存成功";
 	}
@@ -57,7 +61,7 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 	@Override
 	public String voiceMsgHandle(BaseMsg msg) {
 		String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-		String voicePath = "c://itchat4j/voice" + File.separator + fileName + ".mp3";
+		String voicePath = WechatConsts.VoiceMsgStoragePath + File.separator + fileName + ".mp3";
 		DownloadTools.getDownloadFn(msg, MsgTypeEnum.VOICE.getType(), voicePath);
 		return "声音保存成功";
 	}
@@ -65,7 +69,7 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 	@Override
 	public String viedoMsgHandle(BaseMsg msg) {
 		String fileName = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date());
-		String viedoPath = "c://itchat4j/viedo" + File.separator + fileName + ".mp4";
+		String viedoPath = WechatConsts.VideoMsgStoragePath + File.separator + fileName + ".mp4";
 		DownloadTools.getDownloadFn(msg, MsgTypeEnum.VIEDO.getType(), viedoPath);
 		return "视频保存成功";
 	}
@@ -95,7 +99,7 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 	@Override
 	public String mediaMsgHandle(BaseMsg msg) {
 		String fileName = msg.getFileName();
-		String filePath = "c://itchat4j/file" + File.separator + fileName; // 这里是需要保存收到的文件路径，文件可以是任何格式如PDF，WORD，EXCEL等。
+		String filePath = WechatConsts.FileMsgStoragePath + File.separator + fileName; // 这里是需要保存收到的文件路径，文件可以是任何格式如PDF，WORD，EXCEL等。
 		DownloadTools.getDownloadFn(msg, MsgTypeEnum.MEDIA.getType(), filePath);
 		return "文件" + fileName + "保存成功";
 	}

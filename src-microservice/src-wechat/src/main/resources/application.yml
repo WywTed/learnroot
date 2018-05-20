@@ -6,7 +6,7 @@ spring:
     name: wechat-person
   datasource:
     name: test
-    url: jdbc:mysql://120.78.221.72:3306/spring-cloud?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://120.78.221.72:3306/db_coin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: wuhuhu
     password: wyw89500@
     driverClassName: com.mysql.jdbc.Driver
@@ -35,3 +35,5 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     templateResolverOrder: 
+mybatis:
+  mapperLocations: classpath:mapper/*.xml

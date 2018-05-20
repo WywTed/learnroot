@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huhusky.wechat.dao.ApiDataDao">
+
+	<insert id="addContact" >
+		insert into contact(Uin,UserName,NickName,HeadImgUrl,MemberCount,RemarkName,HideInputBarFlag,sex,Signature,
+		AppAccountFlag,ChatRoomId,VerifyFlag,OwnerUin,PYInitial,PYQuanPin,RemarkPYInitial,RemarkPYQuanPin,StarFriend,
+		Statues,AttrStatus,City,Alias,ContactFlag,DisplayName,EncryChatRoomId,IsOwner,KeyWord,Province,SnsFlag,UniFriend)
+		values(#{Uin},#{UserName},#{NickName},#{HeadImgUrl},#{MemberCount},#{RemarkName},#{HideInputBarFlag},#{sex},#{Signature},
+		#{AppAccountFlag},#{ChatRoomId},#{VerifyFlag},#{OwnerUin},#{PYInitial},#{PYQuanPin},#{RemarkPYInitial},#{RemarkPYQuanPin},#{StarFriend},
+		#{Statues},#{AttrStatus},#{City},#{Alias},#{ContactFlag},#{DisplayName},#{EncryChatRoomId},#{IsOwner},#{KeyWord},#{Province},#{SnsFlag},#{UniFriend})
+	</insert>
+</mapper>
