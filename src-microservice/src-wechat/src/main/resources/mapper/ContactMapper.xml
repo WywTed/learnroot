@@ -10,4 +10,11 @@
 		#{AppAccountFlag},#{ChatRoomId},#{VerifyFlag},#{OwnerUin},#{PYInitial},#{PYQuanPin},#{RemarkPYInitial},#{RemarkPYQuanPin},#{StarFriend},
 		#{Statues},#{AttrStatus},#{City},#{Alias},#{ContactFlag},#{DisplayName},#{EncryChatRoomId},#{IsOwner},#{KeyWord},#{Province},#{SnsFlag},#{UniFriend})
 	</insert>
+	
+	<insert id="addMsg">
+		insert into msg(subMsgType,voiceLength,fileName,imgHeight,toUserName,hasProductId,imgStatus,url,imgWidth,forwardFlag,status,Ticket,createTime,
+		newMsgId,text,msgType,statusNotifyCode,appMsgType,Type,playLength,mediaId,content,statusNotifyUserName,fromUserName,oriContent,fileSize) values(
+		#{subMsgType},#{voiceLength},#{fileName},#{imgHeight},#{toUserName},#{hasProductId},#{imgStatus},#{url},#{imgWidth},#{forwardFlag},#{status},#{Ticket},#{createTime},#{
+		newMsgId},#{text},#{msgType},#{statusNotifyCode},#{appMsgType},#{Type},#{playLength},#{mediaId},#{content},#{statusNotifyUserName},#{fromUserName},#{oriContent},#{fileSize})
+	</insert>
 </mapper>

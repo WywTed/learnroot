@@ -36,6 +36,12 @@
 			<groupId>com.huhusky</groupId>
 			<artifactId>src-microservice-parent</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<!-- <exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions> -->
 		</dependency>
 	</dependencies>
 
