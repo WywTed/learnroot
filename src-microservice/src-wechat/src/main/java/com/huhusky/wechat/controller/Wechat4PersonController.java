@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.huhusky.wechat.cons.WechatConsts;
+import com.huhusky.wechat.service.CoinService;
 import com.huhusky.wechat.service.DefaultApiDataHandler;
 
 import cn.zhouyafeng.itchat4j.Wechat;
@@ -21,6 +22,9 @@ public class Wechat4PersonController {
 	@Autowired
 	private DefaultApiDataHandler apiDataHandler;
 	
+	@Autowired
+	private CoinService coinService;
+	
 	
 	@RequestMapping("/login")
 	public void login() {
@@ -33,6 +37,11 @@ public class Wechat4PersonController {
 	public void getContact() {
 		ILoginService loginService = new LoginServiceImpl();
 		loginService.webWxGetContact();
+	}
+	
+	@RequestMapping("/price")
+	public String coinPrice() {
+		return coinService.getTfprice();
 	}
 	
 	

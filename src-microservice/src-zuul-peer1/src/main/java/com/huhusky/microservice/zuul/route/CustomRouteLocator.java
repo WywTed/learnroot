@@ -24,7 +24,6 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
 	public CustomRouteLocator(String servletPath, ZuulProperties properties) {
 		super(servletPath, properties);
 		this.properties = properties;
-		logger.info("server info: {}", servletPath);
 	}
 
 	/*public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -67,7 +66,6 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
 	}
 
 	private Map<String, ZuulRoute> locateRouteFromDb() {
-		logger.info("use jdbcTemplate to get routes-info from db. 假裝從數據庫中取得數據");
 		LinkedHashMap<String, ZuulRoute> routeMap = new LinkedHashMap<>();
 		if(!RouteInfo.routerInfo.isEmpty()) {
 			for(ZuulRouterBean zrBean : RouteInfo.routerInfo) {
