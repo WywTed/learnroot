@@ -51,10 +51,15 @@ public class CoinService {
 			params.add("c0-param0", "string:");
 			params.add("c0-param1", "string:");
 			HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(params);
+			long start = System.currentTimeMillis();
 			ResponseEntity<String> result = restTemplate.postForEntity(BitNoahUrl, 
 					requestEntity, String.class);
 			String body = result.getBody();
-			return parseTfc(body);
+			long start1 = System.currentTimeMillis();
+			String ret = parseTfc(body);
+			long end = System.currentTimeMillis();
+			log.info(String.format("#### %s, 网络请求耗时 %s, 解析耗时 %s", Thread.currentThread().getName(), start1-start, end-start1));
+			return ret;
 		} catch (Exception e) {
 			log.error(ExceptionUtils.getStackTrace(e));
 			return null;
@@ -79,7 +84,7 @@ public class CoinService {
 	}
 	
 	private String parseTfc(String result) {
-		String[] strs = result.split(System.getProperty("line.separator"));
+		String[] strs = result.split("\r\n"); // System.getProperty("line.separator")
 		String line2 = strs[2].split(";")[1];
 		int firstL = line2.indexOf("(");
 		int startL = firstL + 10;
