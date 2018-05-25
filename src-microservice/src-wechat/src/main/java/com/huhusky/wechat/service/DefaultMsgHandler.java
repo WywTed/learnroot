@@ -4,6 +4,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.xml.ws.Dispatch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +31,7 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 	@Override
 	public String textMsgHandle(BaseMsg msg) {
 		WechatQueueService.pushTask(new MsgsaveCallable(msg));
-		String msgContent = msg.getText();
-		if(KeywordArr.CoinArr.contains(msgContent.toUpperCase())) {
-//			MessageTools.sendMsg(coinService.getTfprice(), msg.getFromUserName());
-			return coinService.getTfprice();
-		}
+		return resolveTextMsg(msg);
 		
 		/*log.info("==============msg: " + msgContent);
 		// String docFilePath = "D:/itchat4j/pic/1.jpg"; // 这里是需要发送的文件的路径
@@ -56,6 +54,70 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 			}
 			return text;
 		}*/
+	}
+
+	private String resolveTextMsg(BaseMsg msg) {
+		String text = msg.getText();
+		if(KeywordArr.Key_PriceArr.contains(text.toUpperCase())) {
+			return coinService.getTfprice();
+		}
+		if(KeywordArr.Key_FeedbakArr.contains(text)) {
+			return "------------------------\n"
+					+ "TFchain全球第一出行公链\n"
+					+ "开车和出行可以挖矿，挖矿可以赚钱\n"
+					+ "------------------------\n"
+					+ "TF社群反馈和意见:\n"
+					+ "https://t.zsxq.com/BImEuN3\n"
+					+ "TF官方微信平台:\n"
+					+ "TFCOIN\n"
+					+ "电报群入口及使用教程:\n"
+					+ "https://mp.weixin.qq.com/s/YK3f764wUt1Jbu9o8Rc2ug\n"
+					+ "TF知识星球官方社群:\n"
+					+ "https://t.zsxq.com/BImEuN3\n"
+					+ "TF大讲堂:\n"
+					+ "https://appomy79xgp7344.h5.xiaoeknow.com/\n"
+					+ "------------------------\n";
+		}
+		if(KeywordArr.Key_WorthArr.contains(text)) {
+			return "------------------------\n"
+					+ "使命：加速全球出行效率\n"
+					+ "愿景：TFchain 成为全球出行第一公链\n"
+					+ "价值观：公平 民主 责任心 主动 激情 互助\n"
+					+ "------------------------\n";
+		}
+		if(KeywordArr.Key_Tutor.equals(text)) {
+			return "------------------------\n"
+					+ "TFchain全球第一出行公链\n"
+					+ "开车和出行可以挖矿，挖矿可以赚钱\n"
+					+ "------------------------\n"
+					+ "挖矿APP教程\n"
+					+ "https://mp.weixin.qq.com/s/Kh0BXNRFgHwS0dnOiDBEew\n"
+					+ "手机钱包教程:\n"
+					+ "https://mp.weixin.qq.com/s/rLjBqWfDYyZBHAW1Kg8F6Q\n"
+					+ "PC钱包导入手机轻钱包教程:\n"
+					+ "https://mp.weixin.qq.com/s/eDVlxfCcpw02iOcafLx4mw\n"
+					+ "提币教程:\n"
+					+ "https://mp.weixin.qq.com/s/Z1lk7lV9WNsCEonF61Lpvg\n"
+					+ "------------------------\n";
+		}
+		if(KeywordArr.Key_Download.equals(text)) {
+			return "------------------------\n"
+					+ "TFchain全球第一出行公链\n"
+					+ "开车和出行可以挖矿，挖矿可以赚钱\n"
+					+ "------------------------\n"
+					+ "挖矿APP\n"
+					+ "iOS（请卸载旧的版本，然后安装新的）：\n"
+					+ "https://fir.im/TFChain\n"
+					+ "Android（请卸载旧的版本，然后安装新的）：\n"
+					+ "http://d.tfcoin.io/TFChain.apk\n"
+					+ "手机钱包:\n"
+					+ "IOS:\n"
+					+ "https://fir.im/TFWallet\n"
+					+ "安卓：\n"
+					+ "http://d.tfcoin.io/TFWallet.apk\n"
+					+ "------------------------\n";
+		}
+		
 		return null;
 	}
 
