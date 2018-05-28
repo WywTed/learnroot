@@ -1,7 +1,9 @@
 package com.huhusky.wechat.cons;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class KeywordArr {
 	
@@ -29,4 +31,11 @@ public class KeywordArr {
 		Key_WorthArr.add("价值观");
 	}
 
+	public static Map<String, String> KwretMap = new HashMap<>();
+	public static List<String> AllKeyword = new ArrayList<>();
+	
+	public static Map<String, String> RKwretMap = new HashMap<>();
+	public static List<String> RAllKeyword = new ArrayList<>();
+	
+	public static String KeywordShow = "";
 }

@@ -68,4 +68,9 @@ public class Wechat4PersonController {
 	}
 	
 	
+	@RequestMapping("/refresh/kw")
+	public void refreshKeywordMap() {
+		coinService.refreshAllTextmap();
+	}
+	
 }

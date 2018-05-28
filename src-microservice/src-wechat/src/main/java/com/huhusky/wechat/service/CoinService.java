@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -20,6 +22,8 @@ import org.springframework.web.client.RestTemplate;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.huhusky.common.utils.util.BigDecimalUtils;
+import com.huhusky.wechat.cons.KeywordArr;
+import com.huhusky.wechat.dao.CoinDao;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +33,8 @@ public class CoinService {
 	
 	@Autowired
 	public RestTemplate restTemplate;
+	@Autowired
+	private CoinDao coinDao;
 	
 	static String BitNoahUrl = "https://www.bitnoah.com/dwr/call/plaincall/HomeHq.GetHomePrice.dwr";
 	
@@ -58,7 +64,7 @@ public class CoinService {
 			long start1 = System.currentTimeMillis();
 			String ret = parseTfc(body);
 			long end = System.currentTimeMillis();
-			log.info(String.format("#### %s, 网络请求耗时 %s, 解析耗时 %s", Thread.currentThread().getName(), start1-start, end-start1));
+			log.debug(String.format("#### %s, 网络请求耗时 %s, 解析耗时 %s", Thread.currentThread().getName(), start1-start, end-start1));
 			return ret;
 		} catch (Exception e) {
 			log.error(ExceptionUtils.getStackTrace(e));
@@ -91,7 +97,6 @@ public class CoinService {
 		int endL = line2.length() - 2;
 		String data = line2.substring(startL, endL);
 		data = data.replace("\\\"", "\"").replace("\\\\", "\\");
-//		data = JSON.parse(data).toString();
 		JSONObject jo = JSONObject.parseObject(data);
 		JSONArray ja = jo.getJSONArray("data");
 		Iterator<Object> it = ja.iterator();
@@ -101,14 +106,39 @@ public class CoinService {
 				String price = j1.getString("newest");
 				String uppecent = j1.getString("uppercent");
 				double p = BigDecimalUtils.mul(Double.valueOf(price), Double.valueOf(5)).doubleValue();
+				String pattern = "【比特诺亚】\n当前 TF 价格： %s AUC \n约合 %s CNY, 涨幅 %s%% \n【%s】\n";
 				
-				String pattern = "【比特诺亚】\n当前tf价格： %s AUC \n约合 %s CNY, 涨幅 %s \n【%s】";
-				;
-				return String.format(pattern, price, p, uppecent, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+				String ret = String.format(pattern, price, p, uppecent, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+				if(StringUtils.isNotBlank(KeywordArr.KeywordShow)) {
+					ret += "-----------------------------\n";
+					ret += "关键词：" + KeywordArr.KeywordShow;
+				}
+				return ret;
 			}
 		}
 		return null;
 //		dwr.engine.remote.handleCallback("1","0","{\"code\":\"0\",\"msg\":\"\",\"extdata\":\"\",\"data\":[\"{\\\"coincode\\\":\\\"act\\\",\\\"newest\\\":\\\"0.3253\\\",\\\"uppercent\\\":\\\"-1.51\\\",\\\"amt\\\":\\\"110372279.5150\\\",\\\"num\\\":\\\"63951768.0580\\\"}\",\"{\\\"coincode\\\":\\\"bsc\\\",\\\"newest\\\":\\\"0.0451\\\",\\\"uppercent\\\":\\\"1.58\\\",\\\"amt\\\":\\\"13133608.1205\\\",\\\"num\\\":\\\"59155323.2104\\\"}\",\"{\\\"coincode\\\":\\\"btc\\\",\\\"newest\\\":\\\"10600.0000\\\",\\\"uppercent\\\":\\\"-4.42\\\",\\\"amt\\\":\\\"2650710.6000\\\",\\\"num\\\":\\\"50.0149\\\"}\",\"{\\\"coincode\\\":\\\"can\\\",\\\"newest\\\":\\\"0.0304\\\",\\\"uppercent\\\":\\\"0.00\\\",\\\"amt\\\":\\\"12673005.5330\\\",\\\"num\\\":\\\"73571528.5955\\\"}\",\"{\\\"coincode\\\":\\\"eth\\\",\\\"newest\\\":\\\"1499.0000\\\",\\\"uppercent\\\":\\\"71.51\\\",\\\"amt\\\":\\\"875126.1175\\\",\\\"num\\\":\\\"200.0265\\\"}\",\"{\\\"coincode\\\":\\\"kcash\\\",\\\"newest\\\":\\\"0.1970\\\",\\\"uppercent\\\":\\\"-4.46\\\",\\\"amt\\\":\\\"71623190.8420\\\",\\\"num\\\":\\\"71249434.5057\\\"}\",\"{\\\"coincode\\\":\\\"let\\\",\\\"newest\\\":\\\"0.0758\\\",\\\"uppercent\\\":\\\"5.13\\\",\\\"amt\\\":\\\"27247848.3870\\\",\\\"num\\\":\\\"72899200.1713\\\"}\",\"{\\\"coincode\\\":\\\"ltc\\\",\\\"newest\\\":\\\"172.0000\\\",\\\"uppercent\\\":\\\"-1.15\\\",\\\"amt\\\":\\\"761100.0000\\\",\\\"num\\\":\\\"885.0000\\\"}\",\"{\\\"coincode\\\":\\\"swtc\\\",\\\"newest\\\":\\\"0.0096\\\",\\\"uppercent\\\":\\\"-11.93\\\",\\\"amt\\\":\\\"1871335.5700\\\",\\\"num\\\":\\\"36262810.0284\\\"}\",\"{\\\"coincode\\\":\\\"tf\\\",\\\"newest\\\":\\\"0.0091\\\",\\\"uppercent\\\":\\\"30.00\\\",\\\"amt\\\":\\\"1630411.4785\\\",\\\"num\\\":\\\"43026798.2275\\\"}\",\"{\\\"coincode\\\":\\\"vcat\\\",\\\"newest\\\":\\\"0.0001\\\",\\\"uppercent\\\":\\\"0.00\\\",\\\"amt\\\":\\\"3701.6800\\\",\\\"num\\\":\\\"7150679.8802\\\"}\"]}");
+	}
+	
+	public void refreshAllTextmap() {
+		log.info("###  加载关键词匹配示");
+		List<String> keywords = coinDao.getAllKeywords();
+		String text;
+		for(String kw : keywords) {
+			KeywordArr.AllKeyword.add(kw);
+			text = coinDao.getRetByKeyword(kw);
+			KeywordArr.KwretMap.put(kw, text);
+		}
+		
+		List<String> r_keyword = coinDao.getRemoteKeywords();
+		for(String kw : r_keyword) {
+			KeywordArr.RAllKeyword.add(kw);
+			text = coinDao.getRetByKeyword(kw);
+			KeywordArr.RKwretMap.put(kw, text);
+		}
+		
+		log.info("###  加载关键词显示");
+		KeywordArr.KeywordShow = coinDao.getKeywordShow();
 	}
 
 }
