@@ -1,26 +1,25 @@
 package com.huhusky.wechat.controller;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.ctc.wstx.util.StringUtil;
 import com.huhusky.wechat.cons.WechatConsts;
-import com.huhusky.wechat.service.CoinService;
 import com.huhusky.wechat.service.DefaultApiDataHandler;
+import com.huhusky.wechat.service.Msgservice;
 
 import cn.zhouyafeng.itchat4j.Wechat;
+import cn.zhouyafeng.itchat4j.api.Core;
 import cn.zhouyafeng.itchat4j.face.IMsgHandlerFace;
-import cn.zhouyafeng.itchat4j.service.ILoginService;
-import cn.zhouyafeng.itchat4j.service.impl.LoginServiceImpl;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/wechat4person")
-@Slf4j
 public class Wechat4PersonController {
 
 	@Autowired
@@ -28,8 +27,9 @@ public class Wechat4PersonController {
 	@Autowired
 	private DefaultApiDataHandler apiDataHandler;
 	
+	
 	@Autowired
-	private CoinService coinService;
+	private Msgservice msgService;
 	
 	
 	@RequestMapping("/login")
@@ -39,38 +39,22 @@ public class Wechat4PersonController {
 		wechat.start(); // 启动服务，会在qrPath下生成一张二维码图片，扫描即可登陆，注意，二维码图片如果超过一定时间未扫描会过期，过期时会自动更新，所以你可能需要重新打开图片
 	}
 	
-	@RequestMapping("/contact")
-	public void getContact() {
-		ILoginService loginService = new LoginServiceImpl();
-		loginService.webWxGetContact();
+	@GetMapping("/core")
+	public Core getCore() {
+		return Core.getInstance();
 	}
 	
-	@RequestMapping("/price")
-	public String coinPrice() {
-		return coinService.getTfprice();
+	@PutMapping("/msg/config/refresh")
+	public void refreshMsgConfig() {
+		msgService.refreshMsgConfig();
 	}
 	
-	@RequestMapping("/test/{threadCount}/{taskCount}")
-	public void test(@PathVariable int threadCount, @PathVariable int taskCount) {
-		ExecutorService es = Executors.newFixedThreadPool(threadCount);
-		for(int i=0;i<taskCount;i++) {
-			es.submit(new Runnable() {
-				@Override
-				public void run() {
-					long start = System.currentTimeMillis();
-					coinService.getTfprice();
-					long end = System.currentTimeMillis();
-					log.info(String.format("###### %s 耗时： %s", Thread.currentThread().getName(), end - start));
-				}
-			});
+	@PutMapping("/msg/configurl/refresh")
+	public void refreshConfigUrl(@RequestBody JSONObject payload) {
+		if(payload == null || StringUtils.isBlank(payload.getString("configUrl"))) {
+			return ;
 		}
-		
+		WechatConsts.remoteConfigUrl = payload.getString("configUrl");
+		msgService.refreshMsgConfig();
 	}
-	
-	
-	@RequestMapping("/refresh/kw")
-	public void refreshKeywordMap() {
-		coinService.refreshAllTextmap();
-	}
-	
 }

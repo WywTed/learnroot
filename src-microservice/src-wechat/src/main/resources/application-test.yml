@@ -1,0 +1,47 @@
+server:
+  port: 5555
+
+remote:
+  wechat:
+    msgConfig: http://localhost:5556/
+
+spring:
+  application:
+    name: wechat-person
+  datasource:
+    name: test
+    url: jdbc:mysql://120.78.221.72:3306/db_coin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: wuhuhu
+    password: wyw89500@
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  thymeleaf:
+    cache: false
+    checkTemplateLocation: true
+    contentType: text/html
+    enabled: true
+    encoding: UTF-8
+    excludedViewNames:
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    templateResolverOrder: 
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  
+config:
+  remote:
+    url: http://www.huhusky.com

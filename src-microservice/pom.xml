@@ -20,6 +20,7 @@
 		<module>src-server-zipkinclient</module>
 	<module>src-security-oauth2</module>
     <module>src-wechat</module>
+    <module>tfc-wechat</module>
   </modules>
 
 	<properties>

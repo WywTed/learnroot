@@ -5,7 +5,9 @@ import java.io.File;
 import cn.zhouyafeng.itchat4j.utils.Config;
 
 public class WechatConsts {
-
+	
+	public static String remoteConfigUrl = "http://localhost:5556/tfmsg/config";
+	
 	public static String LinuxBasePath = "/home/projectdata/itchat/data";
 	public static String WindowBasePath = "c:/itchat/data";
 	

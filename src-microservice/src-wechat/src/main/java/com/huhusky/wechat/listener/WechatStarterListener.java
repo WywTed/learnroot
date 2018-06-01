@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huhusky.wechat.service.CoinService;
+import com.huhusky.wechat.service.Msgservice;
 import com.huhusky.wechat.service.WechatQueueService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WechatStarterListener implements ServletContextListener{
 	
+	
 	@Autowired
-	private CoinService coinService;
-
+	private Msgservice msgservice;
+	
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		log.info("###########  启用 队列监听，等待通知 ###########");
@@ -25,8 +26,9 @@ public class WechatStarterListener implements ServletContextListener{
 			WechatQueueService.exec();
 		}).start();
 		
-		// refresh-kw
-		coinService.refreshAllTextmap();
+		log.info("##########  远程加载回复类型配置  ############ ");
+		msgservice.refreshMsgConfig();
+		
 	}
 
 	@Override
