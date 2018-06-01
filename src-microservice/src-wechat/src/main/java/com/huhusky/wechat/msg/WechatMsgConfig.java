@@ -1,5 +1,6 @@
 package com.huhusky.wechat.msg;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,8 +11,28 @@ import lombok.ToString;
 @Getter
 @Setter
 public class WechatMsgConfig {
+	
+	public static String Rettype_Text = "text";
+	public static String Rettype_Pic = "picture";
+	public static String Rettype_File = "file";
+	public static String Rettype_Voice = "voice";
+	public static String Rettype_Video = "video";
+	public static String Rettype_Media = "media";
+	public static String Rettype_Namecard = "namecard";
+	public static String Rettype_Addfriend = "addfriend";
 
 	public static Msgconfig TextmsgConfig = new Msgconfig();
+	
+	public static Map<String, Boolean> MsgResolveSwitcher = new HashMap<>();
+	
+	static {
+		MsgResolveSwitcher.put(Rettype_Text, false);
+		MsgResolveSwitcher.put(Rettype_Pic, false);
+		MsgResolveSwitcher.put(Rettype_File, false);
+		MsgResolveSwitcher.put(Rettype_Voice, false);
+		MsgResolveSwitcher.put(Rettype_Video, false);
+		MsgResolveSwitcher.put(Rettype_Media, false);
+	}
 	
 	public static KeywordRet getKeywordRet(String keyword) {
 		if(!TextmsgConfig.getKeywords().contains(keyword)) {
@@ -28,10 +49,6 @@ public class WechatMsgConfig {
 	public static boolean containKeyword(String keyword) {
 		return TextmsgConfig.getKeywords().contains(keyword);
 	}
-	
-	public static String Rettype_Text = "text";
-	public static String Rettype_Pic = "picture";
-	public static String Rettype_File = "file";
 	
 	@Getter
 	@Setter

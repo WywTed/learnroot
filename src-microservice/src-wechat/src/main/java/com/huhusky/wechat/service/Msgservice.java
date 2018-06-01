@@ -17,8 +17,6 @@ public class Msgservice {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	
-	
 	public void refreshMsgConfig() {
 		log.info("####  加载远程消息回复配置信息  #####");
 		WechatMsgConfig.TextmsgConfig = restTemplate.getForObject(WechatConsts.remoteConfigUrl, Msgconfig.class);

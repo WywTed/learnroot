@@ -47,11 +47,11 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.huhusky</groupId>
 			<artifactId>itchat4j</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		</dependency> -->
 		<!-- local cache -->
 		<dependency>
 			<groupId>com.google.guava</groupId>

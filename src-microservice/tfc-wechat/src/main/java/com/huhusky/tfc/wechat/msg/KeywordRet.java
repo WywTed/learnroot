@@ -1,8 +1,6 @@
 package com.huhusky.tfc.wechat.msg;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -20,3 +18,4 @@ public class KeywordRet {
 	private String filePath; // 如果回复的是图片，文件，则使用filepath
 	private String status;
 }
+	

@@ -6,9 +6,13 @@ import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.huhusky.tfc.wechat.dto.BaseMsg;
+import com.huhusky.tfc.wechat.msg.KeywordRet;
 import com.huhusky.tfc.wechat.msg.MsgConfig;
 import com.huhusky.tfc.wechat.service.MsgService;
 
@@ -49,6 +53,14 @@ public class TfmsgController {
 				}
 			});
 		}
+	}
+	
+	@PostMapping("/onreceive/{msgType}")
+	public KeywordRet onReceiveMsg(@PathVariable String msgType, @RequestBody BaseMsg msg) {
+		
+		// TODO if necessary
+		
+		return null;
 	}
 	
 }

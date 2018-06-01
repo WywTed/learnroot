@@ -18,7 +18,7 @@ public class DefaultApiDataHandler implements WxapiDataHandler{
 
 	@Override
 	public void onGetContact(List<Contact> contacts) {
-		/*if(contacts != null && !contacts.isEmpty()) {
+		if(contacts != null && !contacts.isEmpty()) {
 			for(Contact contact : contacts) {
 				Contact db = apiDataDao.getContactByUserName(contact.getUserName());
 				if(db == null) {
@@ -27,7 +27,7 @@ public class DefaultApiDataHandler implements WxapiDataHandler{
 					// TODO update
 				}
 			}
-		}*/
+		}
 	}
 
 }
