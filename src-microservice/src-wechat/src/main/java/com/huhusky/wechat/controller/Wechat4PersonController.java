@@ -67,6 +67,14 @@ public class Wechat4PersonController {
 		msgService.refreshMsgConfig();
 	}
 	
+	@PutMapping("/msg/resolveurl/refresh")
+	public void refreshMesResolveUrl(@RequestBody JSONObject payload) {
+		if(payload == null || StringUtils.isBlank(payload.getString("msgResolveUrl"))) {
+			return ;
+		}
+		WechatConsts.remoteResolveMsgUrl = payload.getString("msgResolveUrl");
+	}
+	
 	@PostMapping("/sendmsg")
 	public String sendMsg(@RequestBody SendMsgReqbody msgReqbody) {
 		if(msgReqbody == null || StringUtils.isBlank(msgReqbody.getMsgType())) {
