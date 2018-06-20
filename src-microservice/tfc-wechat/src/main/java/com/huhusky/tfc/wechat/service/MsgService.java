@@ -97,7 +97,7 @@ public class MsgService {
 				String price = j1.getString("newest");
 				String uppecent = j1.getString("uppercent");
 				double p = BigDecimalUtils.mul(Double.valueOf(price), Double.valueOf(5)).doubleValue();
-				String pattern = "【比特诺亚】\n当前 TF 价格： %s AUC \n约合 %s CNY, 涨幅 %s%% \n【%s】\n";
+				String pattern = "【比特诺亚】\n当前 TF 价格： %s AUC \n约合 %s CNY, 涨幅 %s%% \n【%s】";
 
 				String ret = String.format(pattern, price, p, uppecent, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 				/*if(StringUtils.isNotBlank(KeywordArr.KeywordShow)) {

@@ -1,0 +1,11 @@
+server:
+  port: 11001
+  
+spring: 
+  application:
+    name: sidecar-java
+    
+eureka:
+  client: 
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

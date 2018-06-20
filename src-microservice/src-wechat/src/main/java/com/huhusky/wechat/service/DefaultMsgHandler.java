@@ -117,6 +117,10 @@ public class DefaultMsgHandler extends AbsMsgHandlerFace{
 			}
 		}
 		
+		if(kr == null) {
+			return null;
+		}
+		
 		// 回复 text 类型消息
 		if(WechatMsgConfig.Rettype_Text.equals(kr.getRetType())){
 			// 判断是否加载远程数据

@@ -1,16 +1,12 @@
 server:
   port: 5555
 
-remote:
-  wechat:
-    msgConfig: http://localhost:5556/
-
 spring:
   application:
     name: wechat-person
   datasource:
     name: test
-    url: jdbc:mysql://120.78.221.72:3306/db_coin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://localhost:3306/db_coin?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: wuhuhu
     password: wyw89500@
     driverClassName: com.mysql.jdbc.Driver
@@ -41,7 +37,3 @@ spring:
     templateResolverOrder: 
 mybatis:
   mapperLocations: classpath:mapper/*.xml
-  
-config:
-  remote:
-    url: http://www.huhusky.com

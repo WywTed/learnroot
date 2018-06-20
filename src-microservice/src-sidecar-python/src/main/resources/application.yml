@@ -1,0 +1,27 @@
+server:
+  port: 5678
+  
+spring:
+  application:
+    name: sidecar-server
+
+sidecar:
+  port: 4000
+  health-uri: http://www.huhusky.com:4000/health.json
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+
+ribbon:
+  ConnectTimeout: 5000
+  ReadTimeout: 5000
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

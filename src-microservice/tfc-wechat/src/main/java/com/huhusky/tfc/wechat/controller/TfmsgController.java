@@ -60,7 +60,11 @@ public class TfmsgController {
 		
 		// TODO if necessary
 		
-		return null;
+		KeywordRet kr = new KeywordRet();
+		kr.setContent("## 我已收到你的消息  ##");
+		kr.setRetType("text");
+		
+		return kr;
 	}
 	
 }

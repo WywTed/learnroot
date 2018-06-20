@@ -32,6 +32,14 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka-server</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/at.twinformatics/eureka-consul-adapter -->
+		<dependency>
+			<groupId>at.twinformatics</groupId>
+			<artifactId>eureka-consul-adapter</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
 	</dependencies>
 
 

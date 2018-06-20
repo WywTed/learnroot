@@ -2,8 +2,6 @@ package com.huhusky.wechat.controller;
 
 import java.util.Map;
 
-import javax.ws.rs.DELETE;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +23,7 @@ import com.huhusky.wechat.service.Msgservice;
 import cn.zhouyafeng.itchat4j.Wechat;
 import cn.zhouyafeng.itchat4j.api.Core;
 import cn.zhouyafeng.itchat4j.api.MessageTools;
+import cn.zhouyafeng.itchat4j.api.WechatTools;
 import cn.zhouyafeng.itchat4j.face.IMsgHandlerFace;
 
 @RestController
@@ -118,5 +117,10 @@ public class Wechat4PersonController {
 			return "msgType not exist";
 		}
 		return WechatMsgConfig.MsgResolveSwitcher.remove(msgType) + "";
+	}
+	
+	@PutMapping("/logout")
+	public void logout() {
+		WechatTools.logout();
 	}
 }

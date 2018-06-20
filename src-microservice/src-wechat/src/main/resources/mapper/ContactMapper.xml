@@ -17,4 +17,8 @@
 		#{subMsgType},#{voiceLength},#{fileName},#{imgHeight},#{toUserName},#{hasProductId},#{imgStatus},#{url},#{imgWidth},#{forwardFlag},#{status},#{Ticket},#{createTime},#{
 		newMsgId},#{text},#{msgType},#{statusNotifyCode},#{appMsgType},#{Type},#{playLength},#{mediaId},#{content},#{statusNotifyUserName},#{fromUserName},#{oriContent},#{fileSize})
 	</insert>
+	
+	<insert id="addGroupInfo">
+		insert into temp_group(createTime, info) values(#{createTime}, #{info})
+	</insert>
 </mapper>

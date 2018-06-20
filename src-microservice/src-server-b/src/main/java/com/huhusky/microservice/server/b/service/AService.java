@@ -13,6 +13,7 @@ public class AService {
 	
 	public String infoa() {
 		return aServer.infoa();
+		
 	}
 
 }

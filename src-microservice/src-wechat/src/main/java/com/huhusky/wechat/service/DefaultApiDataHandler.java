@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.huhusky.wechat.dao.ApiDataDao;
+import com.huhusky.wechat.pojo.GroupInfo;
 
 import cn.zhouyafeng.itchat4j.api.WxapiDataHandler;
 import cn.zhouyafeng.itchat4j.api.dto.Contact;
@@ -28,6 +29,14 @@ public class DefaultApiDataHandler implements WxapiDataHandler{
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onBatchGetContact(String text) {
+		GroupInfo gi = new GroupInfo();
+		gi.setCreateTime(System.currentTimeMillis());
+		gi.setInfo(text);
+		apiDataDao.addGroupInfo(gi);
 	}
 
 }

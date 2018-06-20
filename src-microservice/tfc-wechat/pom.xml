@@ -47,12 +47,6 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.5.0</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.huhusky</groupId>
-			<artifactId>itchat4j</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency> -->
-		<!-- local cache -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
@@ -78,6 +72,17 @@
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.huhusky</groupId>
+			<artifactId>src-common-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-lang</groupId>
+					<artifactId>commons-lang</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
