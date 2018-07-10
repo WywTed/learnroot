@@ -30,8 +30,14 @@ public class ServercController {
 	@GetMapping("/dinfo")
 	@HystrixCommand(fallbackMethod="defaultBinfo")
 	public String dinfo() {
-		String info = restTemplate.getForObject("http://localhost:9060/dinfo", String.class);
-		System.out.println(info);
+		String info = "default";
+		try {
+			info = restTemplate.getForObject("http://localhost:9060/dinfo", String.class);
+			System.out.println(info);
+			info = restTemplate.getForObject("http://localhost:9040/binfo", String.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return info;
 	}
 	

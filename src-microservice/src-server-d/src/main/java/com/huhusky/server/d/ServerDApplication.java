@@ -8,6 +8,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import io.prometheus.client.spring.boot.EnablePrometheusEndpoint;
 import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector;
@@ -27,5 +29,11 @@ public class ServerDApplication
     	SpringApplication.run(ServerDApplication.class, args);
     	
     }
+    
+    @Bean
+  RestTemplate restTemplate() {
+  	return new RestTemplate();
+  }
+  
     
 }
