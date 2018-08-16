@@ -27,6 +27,8 @@
     <module>src-server-d</module>
     <module>src-sidecar-python</module>
     <module>src-sidecar-java</module>
+    <module>src-zookeeper</module>
+    <module>src-amqp</module>
   </modules>
 
 	<properties>

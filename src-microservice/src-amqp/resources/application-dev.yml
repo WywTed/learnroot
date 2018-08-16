@@ -1,0 +1,14 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: src-amqp
+  rabbitmq:
+    host: 192.168.1.247
+    port: 5672
+#    host: 192.168.1.230
+#    port: 39029
+    username: guest
+    password: guest
+
